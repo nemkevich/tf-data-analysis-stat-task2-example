@@ -10,13 +10,7 @@ chat_id = 82953459 # Ваш chat ID, не меняйте название пер
 def solution(p: float, x: np.array) -> tuple:
     alpha = 1 - p
     n = len(x)
-    
-    x2 = np.array([xi**2 for xi in x])
-    x2_mean = x2.mean()
-    
-    chi2_rv = chi2(df = 2 * n)
-    
-    left = chi2_rv.ppf(1 - alpha / 2) #b
-    right = chi2_rv.ppf(alpha / 2) #a
-    
-    return np.sqrt(n * x2_mean / (left * 62)), np.sqrt(n * x2_mean / (right * 62))
+    left = (-min(-x) - 1 / 2) / (62**2 / 2)
+    right = (-np.log(alpha) / n -min(-x) - 1 / 2) / (62**2 / 2)
+    return left, \
+            right
